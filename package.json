@@ -1,0 +1,67 @@
+{
+  "name": "container",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.10",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.3",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@types/vue-router": "^2.0.0",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "history": "^5.3.0",
+    "notistack": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-jwt": "^1.1.7",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
+    "serve": "^14.2.0",
+    "socket.io-client": "^4.6.1",
+    "typescript": "^4.8.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "webpack:start:dev": "webpack serve --config config/webpack.dev.js",
+    "webpack:build": "webpack --config config/webpack.prod.js",
+    "start:prod": "serve -p 3004 -s dist",
+    "docker:compose:staging:up": "docker-compose -f docker-compose.staging.yml -p c-container down && docker rmi -f c-container && docker-compose -f docker-compose.staging.yml -p c-container --env-file /root/config/c-container.env.txt up --build -d"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "source-map-loader": "^4.0.1",
+    "ts-loader": "^9.4.1",
+    "webpack-cli": "^4.10.0"
+  }
+}

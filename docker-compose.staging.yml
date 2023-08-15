@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  c-container:
+    image: mohammadnowresideh1997/c-container
+    container_name: c-container
+    ports:
+      - 3004:3004
