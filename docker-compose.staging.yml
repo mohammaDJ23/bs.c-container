@@ -3,5 +3,12 @@ services:
   c-container:
     image: mohammadnowresideh1997/c-container
     container_name: c-container
+    restart: always
     ports:
       - 3004:3004
+    networks:
+      - services_app-network
+
+networks:
+  services_app-network:
+    external: true
