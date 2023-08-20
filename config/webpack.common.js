@@ -70,17 +70,17 @@ module.exports = {
     new HtmlWebpackPlugin({ template: './public/index.html' }),
     new ModuleFederationPlugin({
       name: 'container',
-      filename: 'remoteEntry.js',
+      filename: 'container.remoteEntry.js',
       exposes: {},
       remotes: {
-        auth: `auth@${process.env.AUTH_APP}/remoteEntry.js`,
-        bank: `bank@${process.env.BANK_APP}/remoteEntry.js`,
+        auth: `auth@${process.env.AUTH_APP}/auth.remoteEntry.js`,
+        bank: `bank@${process.env.BANK_APP}/bank.remoteEntry.js`,
       },
       shared: packageJson.dependencies,
     }),
   ],
   output: {
-    publicPath: process.env.PUBLIC_PATH,
+    publicPath: `${process.env.CONTAINER_APP}/`,
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,
