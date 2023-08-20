@@ -1,10 +1,10 @@
 const { merge } = require('webpack-merge');
 const path = require('path');
-const commonConfig = require('./webpack.common');
 const webpack = require('webpack');
 const dotenv = require('dotenv').config({
   path: path.resolve(__dirname, '../.env.development'),
 });
+const commonConfig = require('./webpack.common');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
