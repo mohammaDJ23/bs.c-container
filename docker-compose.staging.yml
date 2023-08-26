@@ -1,8 +1,8 @@
 version: '3.8'
 services:
-  c-container:
-    image: mohammadnowresideh1997/c-container
-    container_name: c-container
+  c-container-staging:
+    image: mohammadnowresideh1997/c-container-staging
+    container_name: c-container-staging
     restart: always
     ports:
       - 3004:3004
