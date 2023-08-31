@@ -21,7 +21,7 @@ module.exports = merge(commonConfig, {
       },
     }),
   ],
-  devServer: { port: 3004, historyApiFallback: true },
+  devServer: { port: process.env.PORT, historyApiFallback: true },
   output: {
     publicPath: `${process.env.CONTAINER_APP}/`,
   },

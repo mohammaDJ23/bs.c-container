@@ -1,11 +1,13 @@
 version: '3.8'
 services:
   c-container-staging:
-    image: mohammadnowresideh1997/c-container-staging
+    image: ${DOCKER_USERNAME}/c-container-staging
+    env_file:
+      - /root/config/c-container-staging.env.txt
     container_name: c-container-staging
     restart: always
     ports:
-      - 3004:3004
+      - ${PORT}:${PORT}
     networks:
       - services_app-network
 
