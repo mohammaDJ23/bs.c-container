@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  c-container-prod:
+    image: ${DOCKER_USERNAME}/c-container-prod
+    env_file:
+      - /root/config/c-container-prod.env.txt
+    container_name: c-container-prod
+    restart: always
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - services_app-network
+
+networks:
+  services_app-network:
+    external: true
