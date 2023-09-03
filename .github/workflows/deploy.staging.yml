@@ -61,7 +61,7 @@ jobs:
           command_timeout: 60m
           script: |
             cd app
-            npm run docker:stop:c-container:prod
-            npm run docker:rm:c-container:prod
-            npm run docker:rmi:c-container:prod
-            npm run docker:compose:up:c-container:prod
+            npm run docker:stop:c-container:staging
+            npm run docker:rm:c-container:staging
+            npm run docker:rmi:c-container:staging
+            npm run docker:compose:up:c-container:staging
