@@ -27,6 +27,6 @@ COPY . .
 
 RUN npm run webpack:build
 
-EXPOSE 3004
+EXPOSE 4004
 
 CMD [ "npm", "run", "start:prod" ]

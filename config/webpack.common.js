@@ -1,5 +1,5 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const packageJson = require('../package.json');
 
@@ -71,16 +71,10 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'container',
       filename: 'remoteEntry.js',
-      exposes: {},
-      remotes: {
-        auth: `auth@${process.env.AUTH_APP}/remoteEntry.js`,
-        bank: `bank@${process.env.BANK_APP}/remoteEntry.js`,
-      },
       shared: packageJson.dependencies,
     }),
   ],
   output: {
-    publicPath: process.env.PUBLIC_PATH,
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,
