@@ -1,5 +1,6 @@
 const { ModuleFederationPlugin } = require('webpack').container;
 const { merge } = require('webpack-merge');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const webpack = require('webpack');
 const commonConfig = require('./webpack.common');
 
@@ -13,6 +14,17 @@ module.exports = merge(commonConfig, {
       remotes: {
         auth: `auth@${process.env.AUTH_APP}/auth/static/remoteEntry.js`,
         bank: `bank@${process.env.BANK_APP}/bank/static/remoteEntry.js`,
+      },
+    }),
+    new FaviconsWebpackPlugin({
+      logo: './public/app-logo-48.png',
+      favicons: {
+        path: `${process.env.CONTAINER_APP}/container/static/assets/`,
+        icons: {
+          android: true,
+          appleIcon: true,
+          favicons: true,
+        },
       },
     }),
   ],
