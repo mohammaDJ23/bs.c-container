@@ -1,4 +1,5 @@
 const { ModuleFederationPlugin } = require('webpack').container;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const path = require('path');
 const webpack = require('webpack');
@@ -11,6 +12,7 @@ module.exports = merge(commonConfig, {
   mode: 'development',
   devtool: 'source-map',
   plugins: [
+    new HtmlWebpackPlugin({ template: './public/index.html', favicon: './public/app-logo-48.png' }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(dotenv.parsed),
     }),

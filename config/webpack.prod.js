@@ -1,4 +1,5 @@
 const { ModuleFederationPlugin } = require('webpack').container;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const webpack = require('webpack');
@@ -7,6 +8,7 @@ const commonConfig = require('./webpack.common');
 module.exports = merge(commonConfig, {
   mode: 'production',
   plugins: [
+    new HtmlWebpackPlugin({ template: './public/index.html' }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
