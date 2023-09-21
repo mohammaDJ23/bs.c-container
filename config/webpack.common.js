@@ -1,5 +1,6 @@
 const { ModuleFederationPlugin } = require('webpack').container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const packageJson = require('../package.json');
 
@@ -9,6 +10,19 @@ module.exports = {
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          mangle: true,
+          keep_classnames: true,
+          keep_fnames: true,
+          compress: true,
+        },
+      }),
+    ],
   },
   module: {
     rules: [
