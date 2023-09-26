@@ -4,7 +4,10 @@ const path = require('path');
 const packageJson = require('../package.json');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    main: './src/index.ts',
+    sw: './src/sw.js',
+  },
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
