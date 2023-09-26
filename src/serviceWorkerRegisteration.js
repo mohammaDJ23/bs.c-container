@@ -4,7 +4,7 @@ export function register() {
       navigator.serviceWorker
         .register('/sw.bundle.js')
         .then((registration) => console.log('service worker registered: ', registration))
-        .catch((err) => console.log('service worker registration failed: ', err));
+        .catch((err) => console.error('service worker registration failed: ', err));
     });
   }
 }
