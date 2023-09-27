@@ -14,7 +14,7 @@ function App() {
         <RedirectionProvider>
           <SnackbarProvider dense maxSnack={Infinity} anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
             <Routes>
-              {routes.map(route => (
+              {routes.map((route) => (
                 <Route
                   key={route.path}
                   path={route.path}

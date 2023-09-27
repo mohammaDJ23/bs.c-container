@@ -85,7 +85,15 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'container',
       filename: 'remoteEntry.js',
-      shared: packageJson.dependencies,
+      shared: (() => {
+        const packages = packageJson.dependencies;
+        for (const key in packages) {
+          if (key.startsWith('workbox-')) {
+            delete packages[key];
+          }
+        }
+        return packages;
+      })(),
     }),
   ],
   output: {

@@ -27,7 +27,12 @@
     "react-spinners": "^0.13.8",
     "socket.io-client": "^4.6.1",
     "typescript": "^4.8.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "workbox-cacheable-response": "^7.0.0",
+    "workbox-expiration": "^7.0.0",
+    "workbox-precaching": "^7.0.0",
+    "workbox-routing": "^7.0.0",
+    "workbox-strategies": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -58,10 +63,9 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
+    "favicons-webpack-plugin": "^6.0.1",
     "source-map-loader": "^4.0.1",
     "ts-loader": "^9.4.1",
-    "webpack-cli": "^4.10.0",
-    "workbox-webpack-plugin": "^7.0.0",
-    "favicons-webpack-plugin": "^6.0.1"
+    "webpack-cli": "^4.10.0"
   }
 }
