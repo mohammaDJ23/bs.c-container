@@ -1,8 +1,40 @@
-import { registerRoute, Route } from 'workbox-routing';
-import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { setCacheNameDetails } from 'workbox-core';
+import { offlineFallback } from 'workbox-recipes';
+import { registerRoute, Route, setDefaultHandler, setCatchHandler } from 'workbox-routing';
+import { NetworkFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strategies';
 import { precacheAndRoute } from 'workbox-precaching';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+
+setDefaultHandler(new NetworkOnly());
+
+offlineFallback();
+
+setCatchHandler(async ({ request }) => {
+  if (request.destination === 'script') {
+    const cache = await caches.open('pages');
+    const response = await cache.match('/offline.bundle.js');
+    if (response) {
+      return response;
+    }
+  }
+
+  if (request.destination === 'document') {
+    const cache = await caches.open('workbox-offline-fallbacks');
+    const response = await cache.match('/offline.html');
+    if (response) {
+      return response;
+    }
+  }
+
+  return Response.error();
+});
+
+setCacheNameDetails({
+  prefix: '',
+  precache: 'pages',
+  suffix: '',
+});
 
 precacheAndRoute([
   { url: '/', revision: null },
@@ -18,6 +50,8 @@ precacheAndRoute([
   { url: '/bank/users/deleted', revision: null },
   { url: '/bank/create-bill', revision: null },
   { url: '/bank/create-user', revision: null },
+
+  { url: '/offline.bundle.js', revision: null },
 ]);
 
 registerRoute(

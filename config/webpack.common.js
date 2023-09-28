@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     main: './src/index.ts',
     sw: './src/sw.js',
+    offline: './public/offline.js',
   },
   performance: {
     hints: false,
@@ -83,7 +84,12 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
-    new HtmlWebpackPlugin({ filename: 'offline.html', template: './public/offline.html' }),
+    new HtmlWebpackPlugin({
+      filename: 'offline.html',
+      template: './public/offline.html',
+      favicon: './public/app-logo-48.png',
+      chunks: [],
+    }),
     new ModuleFederationPlugin({
       name: 'container',
       filename: 'remoteEntry.js',

@@ -3,18 +3,42 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Bank system" />
     <title>Bank system</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      #_container-service-offline-wrapper {
+        text-align: center;
+        padding: 20px;
+        font-family: Roboto, sans-serif;
+      }
+      #_container-service-offlie-title {
+        font-size: 1.75rem;
+        font-weight: 500;
+        font-family: Roboto, sans-serif;
+        line-height: 1.2;
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+      #_container-service-offline-description {
+        font-size: 1rem;
+        font-weight: 100;
+        font-family: Roboto, sans-serif;
+        line-height: 1.2;
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+    </style>
   </head>
-  <style>
-    .content-wrapper {
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
   <body>
-    <div class="content-wrapper">
-      <h3>you are offline</h3>
-      <p>check your internet connection.</p>
+    <div id="_container-service-offline-wrapper">
+      <h3 id="_container-service-offlie-title">You are offline</h3>
+      <p id="_container-service-offline-description">Check your internet connection.</p>
     </div>
   </body>
 </html>
