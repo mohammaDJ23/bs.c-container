@@ -10,7 +10,7 @@ export function register() {
       }
 
       navigator.serviceWorker
-        .register(fileUrl)
+        .register(fileUrl, { scope: '/' })
         .then((registration) => console.log('service worker registered: ', registration))
         .catch((err) => console.error('service worker registration failed: ', err));
     });
