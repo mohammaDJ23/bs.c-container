@@ -3,3 +3,4 @@ export * from './localStorage';
 export * from './routes';
 export * from './socket';
 export * from './environments';
+export * from './appPlublicPath';
