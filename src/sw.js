@@ -5,15 +5,18 @@ import { NetworkFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strateg
 import { precacheAndRoute } from 'workbox-precaching';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { appPublicPath } from './lib';
 
 setDefaultHandler(new NetworkOnly());
 
-offlineFallback();
+offlineFallback({
+  pageFallback: appPublicPath + 'offline.html',
+});
 
 setCatchHandler(async ({ request }) => {
   if (request.destination === 'script') {
     const cache = await caches.open('pages');
-    const response = await cache.match('/offline.bundle.js');
+    const response = await cache.match(appPublicPath + 'offline.bundle.js');
     if (response) {
       return response;
     }
@@ -21,7 +24,7 @@ setCatchHandler(async ({ request }) => {
 
   if (request.destination === 'document') {
     const cache = await caches.open('workbox-offline-fallbacks');
-    const response = await cache.match('/offline.html');
+    const response = await cache.match(appPublicPath + 'offline.html');
     if (response) {
       return response;
     }
@@ -51,7 +54,7 @@ precacheAndRoute([
   { url: '/bank/create-bill', revision: null },
   { url: '/bank/create-user', revision: null },
 
-  { url: '/offline.bundle.js', revision: null },
+  { url: appPublicPath + 'offline.bundle.js', revision: null },
 ]);
 
 registerRoute(
