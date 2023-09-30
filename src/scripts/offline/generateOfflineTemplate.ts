@@ -1,7 +1,7 @@
 const containerServiceEl = document.querySelector('#_container-service');
 if (containerServiceEl) {
   while (containerServiceEl.firstChild) {
-    containerServiceEl.removeChild(containerServiceEl.lastChild);
+    if (containerServiceEl.lastChild) containerServiceEl.removeChild(containerServiceEl.lastChild);
   }
 
   const div = document.createElement('div');
@@ -32,3 +32,4 @@ if (containerServiceEl) {
 
   containerServiceEl.appendChild(div);
 }
+export {};

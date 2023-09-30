@@ -1,14 +1,12 @@
-const { ModuleFederationPlugin } = require('webpack').container;
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const packageJson = require('../package.json');
 
 module.exports = {
   entry: {
+    sw: './src/scripts/serviceWorker/index.ts',
+    offline: './src/scripts/offline/index.ts',
     main: './src/index.ts',
-    sw: './src/sw.js',
-    offline: './public/offline.js',
   },
   performance: {
     hints: false,
@@ -89,19 +87,6 @@ module.exports = {
       template: './public/offline.html',
       favicon: './public/app-logo-48.png',
       chunks: [],
-    }),
-    new ModuleFederationPlugin({
-      name: 'container',
-      filename: 'remoteEntry.js',
-      // shared: (() => {
-      //   const packages = packageJson.dependencies;
-      //   for (const key in packages) {
-      //     if (key.startsWith('workbox-')) {
-      //       delete packages[key];
-      //     }
-      //   }
-      //   return packages;
-      // })(),
     }),
   ],
   output: {
