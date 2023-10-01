@@ -1,2 +1,2 @@
-import('./generateOfflineTemplate');
+import('./offline');
 export {};

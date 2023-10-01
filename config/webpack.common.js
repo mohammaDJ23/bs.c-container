@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    sw: './src/scripts/serviceWorker/index.ts',
+    sw: './src/scripts/sw/index.ts',
     offline: './src/scripts/offline/index.ts',
     main: './src/index.ts',
   },
@@ -84,7 +84,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'offline.html',
-      template: './public/offline.html',
+      template: './src/templates/offline.html',
       favicon: './public/app-logo-48.png',
       chunks: [],
     }),

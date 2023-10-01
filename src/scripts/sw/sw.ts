@@ -14,7 +14,7 @@ offlineFallback({
 
 setCatchHandler(async ({ request }) => {
   if (request.destination === 'script') {
-    const cache = await caches.open('pages');
+    const cache = await caches.open('workbox-precaches');
     const response = await cache.match(process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js');
     if (response) {
       return response;
@@ -33,8 +33,7 @@ setCatchHandler(async ({ request }) => {
 });
 
 setCacheNameDetails({
-  prefix: '',
-  precache: 'pages',
+  precache: 'precaches',
   suffix: '',
 });
 
@@ -65,7 +64,7 @@ registerRoute(
       cacheName: 'images',
       plugins: [
         new ExpirationPlugin({
-          maxEntries: 30,
+          maxEntries: 10,
           maxAgeSeconds: 3 * 24 * 60 * 60,
         }),
       ],
@@ -82,7 +81,7 @@ registerRoute(
       cacheName: 'scripts',
       plugins: [
         new ExpirationPlugin({
-          maxEntries: 60,
+          maxEntries: 30,
           maxAgeSeconds: 3 * 24 * 60 * 60,
         }),
       ],
@@ -99,7 +98,7 @@ registerRoute(
       cacheName: 'styles',
       plugins: [
         new ExpirationPlugin({
-          maxEntries: 60,
+          maxEntries: 30,
           maxAgeSeconds: 3 * 24 * 60 * 60,
         }),
       ],

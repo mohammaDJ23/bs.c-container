@@ -29,7 +29,13 @@ module.exports = merge(commonConfig, {
       shared: packageJson.dependencies,
     }),
   ],
-  devServer: { port: process.env.PORT, historyApiFallback: true },
+  devServer: {
+    port: process.env.PORT,
+    historyApiFallback: true,
+    client: {
+      overlay: false,
+    },
+  },
   output: {
     publicPath: process.env.CONTAINER_APP + process.env.CONTAINER_PUBLIC_PATH,
   },
