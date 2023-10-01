@@ -9,7 +9,7 @@ const packageJson = require('../package.json');
 module.exports = merge(commonConfig, {
   mode: 'production',
   plugins: [
-    new HtmlWebpackPlugin({ template: './public/index.html', chunks: ['main', 'sw'] }),
+    new HtmlWebpackPlugin({ template: './public/index.html', chunks: ['main'] }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),

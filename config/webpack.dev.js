@@ -16,7 +16,7 @@ module.exports = merge(commonConfig, {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/app-logo-48.png',
-      chunks: ['main', 'sw'],
+      chunks: ['main'],
     }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(dotenv.parsed),

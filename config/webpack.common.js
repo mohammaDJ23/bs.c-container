@@ -1,11 +1,11 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
-    sw: './src/scripts/sw/index.ts',
-    offline: './src/scripts/offline/index.ts',
+    offline: './public/offline.js',
     main: './src/index.ts',
   },
   performance: {
@@ -84,9 +84,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'offline.html',
-      template: './src/templates/offline.html',
+      template: './public/offline.html',
       favicon: './public/app-logo-48.png',
       chunks: [],
+    }),
+    new InjectManifest({
+      swSrc: './public/sw.js',
+      swDest: 'sw.bundle.js',
     }),
   ],
   output: {
