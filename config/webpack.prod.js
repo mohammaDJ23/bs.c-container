@@ -21,7 +21,7 @@ module.exports = merge(commonConfig, {
       shared: packageJson.dependencies,
     }),
     new FaviconsWebpackPlugin({
-      logo: './public/app-logo-48.png',
+      logo: './public/app-icon_512.png',
       favicons: {
         path: process.env.CONTAINER_APP + process.env.CONTAINER_PUBLIC_PATH + 'assets/',
         icons: {

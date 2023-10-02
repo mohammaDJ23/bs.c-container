@@ -85,7 +85,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'offline.html',
       template: './public/offline.html',
-      favicon: './public/app-logo-48.png',
+      favicon: './public/app-icon_256.png',
       chunks: [],
     }),
     new InjectManifest({
