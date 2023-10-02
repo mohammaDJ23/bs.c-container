@@ -30,6 +30,7 @@ module.exports = merge(commonConfig, {
           favicons: true,
         },
       },
+      manifest: './public/manifest.json',
     }),
   ],
   output: {
