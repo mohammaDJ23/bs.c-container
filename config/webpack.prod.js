@@ -6,6 +6,8 @@ const webpack = require('webpack');
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
 
+console.log('_______________________________', process.env.CONTAINER_APP, process.env.CONTAINER_PUBLIC_PATH);
+
 module.exports = merge(commonConfig, {
   mode: 'production',
   plugins: [
