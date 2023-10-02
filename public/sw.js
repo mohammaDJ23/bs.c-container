@@ -5,18 +5,17 @@ import { NetworkFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strateg
 import { precacheAndRoute } from 'workbox-precaching';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { appPublicPath } from './lib';
 
 setDefaultHandler(new NetworkOnly());
 
 offlineFallback({
-  pageFallback: appPublicPath + 'offline.html',
+  pageFallback: process.env.CONTAINER_PUBLIC_PATH + 'offline.html',
 });
 
 setCatchHandler(async ({ request }) => {
   if (request.destination === 'script') {
-    const cache = await caches.open('pages');
-    const response = await cache.match(appPublicPath + 'offline.bundle.js');
+    const cache = await caches.open('workbox-precaches');
+    const response = await cache.match(process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js');
     if (response) {
       return response;
     }
@@ -24,7 +23,7 @@ setCatchHandler(async ({ request }) => {
 
   if (request.destination === 'document') {
     const cache = await caches.open('workbox-offline-fallbacks');
-    const response = await cache.match(appPublicPath + 'offline.html');
+    const response = await cache.match(process.env.CONTAINER_PUBLIC_PATH + 'offline.html');
     if (response) {
       return response;
     }
@@ -34,28 +33,29 @@ setCatchHandler(async ({ request }) => {
 });
 
 setCacheNameDetails({
-  prefix: '',
-  precache: 'pages',
+  precache: 'precaches',
   suffix: '',
 });
 
-precacheAndRoute([
-  { url: '/', revision: null },
+precacheAndRoute(
+  (self.__WB_MANIFEST || []).concat([
+    { url: '/', revision: null },
 
-  { url: '/auth/login', revision: null },
-  { url: '/auth/forgot-password', revision: null },
-  { url: '/auth/reset-password', revision: null },
+    { url: '/auth/login', revision: null },
+    { url: '/auth/forgot-password', revision: null },
+    { url: '/auth/reset-password', revision: null },
 
-  { url: '/bank/dashboard', revision: null },
-  { url: '/bank/bills', revision: null },
-  { url: '/bank/bills/deleted', revision: null },
-  { url: '/bank/users', revision: null },
-  { url: '/bank/users/deleted', revision: null },
-  { url: '/bank/create-bill', revision: null },
-  { url: '/bank/create-user', revision: null },
+    { url: '/bank/dashboard', revision: null },
+    { url: '/bank/bills', revision: null },
+    { url: '/bank/bills/deleted', revision: null },
+    { url: '/bank/users', revision: null },
+    { url: '/bank/users/deleted', revision: null },
+    { url: '/bank/create-bill', revision: null },
+    { url: '/bank/create-user', revision: null },
 
-  { url: appPublicPath + 'offline.bundle.js', revision: null },
-]);
+    { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
+  ])
+);
 
 registerRoute(
   new Route(
@@ -66,7 +66,7 @@ registerRoute(
       cacheName: 'images',
       plugins: [
         new ExpirationPlugin({
-          maxEntries: 30,
+          maxEntries: 10,
           maxAgeSeconds: 3 * 24 * 60 * 60,
         }),
       ],
@@ -100,7 +100,7 @@ registerRoute(
       cacheName: 'styles',
       plugins: [
         new ExpirationPlugin({
-          maxEntries: 60,
+          maxEntries: 30,
           maxAgeSeconds: 3 * 24 * 60 * 60,
         }),
       ],

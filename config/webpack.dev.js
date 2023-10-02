@@ -7,6 +7,7 @@ const dotenv = require('dotenv').config({
   path: path.resolve(__dirname, '../.env.development'),
 });
 const commonConfig = require('./webpack.common');
+const packageJson = require('../package.json');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
@@ -15,7 +16,7 @@ module.exports = merge(commonConfig, {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/app-logo-48.png',
-      chunks: ['main', 'sw'],
+      chunks: ['main'],
     }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(dotenv.parsed),
@@ -25,10 +26,17 @@ module.exports = merge(commonConfig, {
         auth: `auth@${process.env.AUTH_APP}/remoteEntry.js`,
         bank: `bank@${process.env.BANK_APP}/remoteEntry.js`,
       },
+      shared: packageJson.dependencies,
     }),
   ],
-  devServer: { port: process.env.PORT, historyApiFallback: true },
+  devServer: {
+    port: process.env.PORT,
+    historyApiFallback: true,
+    client: {
+      overlay: false,
+    },
+  },
   output: {
-    publicPath: `${process.env.CONTAINER_APP}/`,
+    publicPath: process.env.CONTAINER_APP + process.env.CONTAINER_PUBLIC_PATH,
   },
 });

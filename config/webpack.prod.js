@@ -4,24 +4,26 @@ const { merge } = require('webpack-merge');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const webpack = require('webpack');
 const commonConfig = require('./webpack.common');
+const packageJson = require('../package.json');
 
 module.exports = merge(commonConfig, {
   mode: 'production',
   plugins: [
-    new HtmlWebpackPlugin({ template: './public/index.html', chunks: ['main', 'sw'] }),
+    new HtmlWebpackPlugin({ template: './public/index.html', chunks: ['main'] }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
     new ModuleFederationPlugin({
       remotes: {
-        auth: `auth@${process.env.AUTH_APP}/auth/static/remoteEntry.js`,
-        bank: `bank@${process.env.BANK_APP}/bank/static/remoteEntry.js`,
+        auth: 'auth@' + process.env.AUTH_APP + process.env.AUTH_PUBLIC_PATH + 'remoteEntry.js',
+        bank: 'bank@' + process.env.BANK_APP + process.env.BANK_PUBLIC_PATH + 'remoteEntry.js',
       },
+      shared: packageJson.dependencies,
     }),
     new FaviconsWebpackPlugin({
       logo: './public/app-logo-48.png',
       favicons: {
-        path: `${process.env.CONTAINER_APP}/container/static/assets/`,
+        path: process.env.CONTAINER_APP + process.env.CONTAINER_PUBLIC_PATH + 'assets/',
         icons: {
           android: true,
           appleIcon: true,
@@ -31,6 +33,6 @@ module.exports = merge(commonConfig, {
     }),
   ],
   output: {
-    publicPath: `${process.env.CONTAINER_APP}/container/static/`,
+    publicPath: process.env.CONTAINER_APP + process.env.CONTAINER_PUBLIC_PATH,
   },
 });

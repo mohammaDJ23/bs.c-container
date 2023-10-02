@@ -1,14 +1,12 @@
-const { ModuleFederationPlugin } = require('webpack').container;
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const packageJson = require('../package.json');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/index.ts',
-    sw: './src/sw.js',
     offline: './public/offline.js',
+    main: './src/index.ts',
   },
   performance: {
     hints: false,
@@ -90,18 +88,10 @@ module.exports = {
       favicon: './public/app-logo-48.png',
       chunks: [],
     }),
-    new ModuleFederationPlugin({
-      name: 'container',
-      filename: 'remoteEntry.js',
-      // shared: (() => {
-      //   const packages = packageJson.dependencies;
-      //   for (const key in packages) {
-      //     if (key.startsWith('workbox-')) {
-      //       delete packages[key];
-      //     }
-      //   }
-      //   return packages;
-      // })(),
+    new InjectManifest({
+      swSrc: './public/sw.js',
+      swDest: 'sw.bundle.js',
+      exclude: ['offline.bundle.js'],
     }),
   ],
   output: {
