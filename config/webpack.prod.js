@@ -6,15 +6,7 @@ const webpack = require('webpack');
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
 
-console.log(
-  '_______________________________',
-  process.env.CONTAINER_APP,
-  process.env.CONTAINER_PUBLIC_PATH,
-  process.env.AUTH_APP,
-  process.env.AUTH_PUBLIC_PATH,
-  process.env.BANK_APP,
-  process.env.BANK_PUBLIC_PATH
-);
+console.log('_______________________________', process.env);
 
 module.exports = merge(commonConfig, {
   mode: 'production',
