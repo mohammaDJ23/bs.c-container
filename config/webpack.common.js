@@ -91,6 +91,7 @@ module.exports = {
     new InjectManifest({
       swSrc: './public/sw.js',
       swDest: 'sw.bundle.js',
+      exclude: ['offline.bundle.js'],
     }),
   ],
   output: {

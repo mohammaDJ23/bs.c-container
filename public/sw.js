@@ -6,8 +6,6 @@ import { precacheAndRoute } from 'workbox-precaching';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
-console.log(self.__WB_MANIFEST);
-
 setDefaultHandler(new NetworkOnly());
 
 offlineFallback({
@@ -39,23 +37,25 @@ setCacheNameDetails({
   suffix: '',
 });
 
-precacheAndRoute([
-  { url: '/', revision: null },
+precacheAndRoute(
+  (self.__WB_MANIFEST || []).concat([
+    { url: '/', revision: null },
 
-  { url: '/auth/login', revision: null },
-  { url: '/auth/forgot-password', revision: null },
-  { url: '/auth/reset-password', revision: null },
+    { url: '/auth/login', revision: null },
+    { url: '/auth/forgot-password', revision: null },
+    { url: '/auth/reset-password', revision: null },
 
-  { url: '/bank/dashboard', revision: null },
-  { url: '/bank/bills', revision: null },
-  { url: '/bank/bills/deleted', revision: null },
-  { url: '/bank/users', revision: null },
-  { url: '/bank/users/deleted', revision: null },
-  { url: '/bank/create-bill', revision: null },
-  { url: '/bank/create-user', revision: null },
+    { url: '/bank/dashboard', revision: null },
+    { url: '/bank/bills', revision: null },
+    { url: '/bank/bills/deleted', revision: null },
+    { url: '/bank/users', revision: null },
+    { url: '/bank/users/deleted', revision: null },
+    { url: '/bank/create-bill', revision: null },
+    { url: '/bank/create-user', revision: null },
 
-  { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
-]);
+    { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
+  ])
+);
 
 registerRoute(
   new Route(
@@ -83,7 +83,7 @@ registerRoute(
       cacheName: 'scripts',
       plugins: [
         new ExpirationPlugin({
-          maxEntries: 30,
+          maxEntries: 60,
           maxAgeSeconds: 3 * 24 * 60 * 60,
         }),
       ],
