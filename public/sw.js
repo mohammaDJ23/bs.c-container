@@ -38,23 +38,25 @@ setCacheNameDetails({
 });
 
 precacheAndRoute(
-  (self.__WB_MANIFEST || []).concat([
-    { url: '/', revision: null },
+  (self.__WB_MANIFEST || [])
+    .filter(() => false)
+    .concat([
+      { url: '/', revision: null },
 
-    { url: '/auth/login', revision: null },
-    { url: '/auth/forgot-password', revision: null },
-    { url: '/auth/reset-password', revision: null },
+      { url: '/auth/login', revision: null },
+      { url: '/auth/forgot-password', revision: null },
+      { url: '/auth/reset-password', revision: null },
 
-    { url: '/bank/dashboard', revision: null },
-    { url: '/bank/bills', revision: null },
-    { url: '/bank/bills/deleted', revision: null },
-    { url: '/bank/users', revision: null },
-    { url: '/bank/users/deleted', revision: null },
-    { url: '/bank/create-bill', revision: null },
-    { url: '/bank/create-user', revision: null },
+      { url: '/bank/dashboard', revision: null },
+      { url: '/bank/bills', revision: null },
+      { url: '/bank/bills/deleted', revision: null },
+      { url: '/bank/users', revision: null },
+      { url: '/bank/users/deleted', revision: null },
+      { url: '/bank/create-bill', revision: null },
+      { url: '/bank/create-user', revision: null },
 
-    { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
-  ])
+      { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
+    ])
 );
 
 registerRoute(
