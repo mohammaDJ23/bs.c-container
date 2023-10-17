@@ -1,6 +1,8 @@
 import { FC, PropsWithChildren, Fragment, useEffect } from 'react';
 import { Notifications, isUserAuthenticated } from '../lib';
 import { Fingerprint } from '../lib/fingerprint';
+import { NotificationSubscriptionApi, Request } from '../apis';
+import { NotificationSubscriptionObj } from '../types';
 
 const NotificationSubscription: FC<PropsWithChildren> = ({ children }) => {
   const isUserLoggedIn = isUserAuthenticated();
@@ -12,8 +14,11 @@ const NotificationSubscription: FC<PropsWithChildren> = ({ children }) => {
           const pushSubscription = await Notifications.subscribe();
           if (pushSubscription) {
             const visitorId = await Fingerprint.getVisitorId();
-            const subscription = Object.assign(pushSubscription, { visitorId });
+            const subscription: NotificationSubscriptionObj = Object.assign(pushSubscription, { visitorId });
             console.log(subscription);
+            const request = new Request(new NotificationSubscriptionApi(subscription));
+            const res = await request.build();
+            console.log(res);
           }
         }
       } catch (error) {
