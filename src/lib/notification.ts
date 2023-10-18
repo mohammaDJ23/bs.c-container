@@ -1,17 +1,37 @@
+import { NotificationSubscriptionObj } from '../types';
+import { LocalStorage } from './localStorage';
 import { getServiceWorkerRegistration } from './serviceWorkerRegisteration';
 
 export class Notifications {
-  static async subscribe(): Promise<PushSubscriptionJSON | undefined> {
+  private static cacheKey: string = 'push-notification';
+  private static pushSubscriptionOptions: PushSubscriptionOptionsInit = {
+    userVisibleOnly: true,
+    applicationServerKey: process.env.APPLICATION_SERVER_KEY,
+  };
+
+  static async subscribe(): Promise<PushSubscriptionJSON> {
     const registration = await getServiceWorkerRegistration();
-    const subscriptionOptions = {
-      userVisibleOnly: true,
-      applicationServerKey: process.env.APPLICATION_SERVER_KEY,
-    };
-    const permission = await registration.pushManager.permissionState(subscriptionOptions);
-    if (permission === 'denied' || permission === 'prompt') {
-      const subscription = await registration.pushManager.subscribe(subscriptionOptions);
-      return subscription.toJSON();
+    let subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+      subscription = await registration.pushManager.subscribe(this.pushSubscriptionOptions);
     }
-    return undefined;
+    return subscription.toJSON();
+  }
+
+  static async getPermission(): Promise<PermissionState> {
+    const registration = await getServiceWorkerRegistration();
+    return registration.pushManager.permissionState(this.pushSubscriptionOptions);
+  }
+
+  static cache(obj: NotificationSubscriptionObj) {
+    LocalStorage.setItem(this.cacheKey, obj);
+  }
+
+  static getCached(): NotificationSubscriptionObj | null {
+    return LocalStorage.getItem(this.cacheKey);
+  }
+
+  static removeCached() {
+    LocalStorage.removeItem(this.cacheKey);
   }
 }

@@ -11,4 +11,5 @@ export namespace Container {
 
 export interface NotificationSubscriptionObj extends PushSubscriptionJSON {
   visitorId: string;
+  userId: number;
 }
