@@ -37,3 +37,20 @@ export class NotificationSubscriptionApi extends RootApi {
     );
   }
 }
+
+export class NotificationUnsubscriptionApi extends RootApi {
+  constructor(visitorId: string) {
+    super(
+      {
+        url: `/api/v1/notification/unsubscribe`,
+        method: 'delete',
+        data: { visitorId },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
+      },
+      { baseURL: process.env.NOTIFICATION_SERVICE }
+    );
+  }
+}
