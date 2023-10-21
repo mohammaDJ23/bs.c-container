@@ -38,23 +38,25 @@ setCacheNameDetails({
 });
 
 precacheAndRoute(
-  (self.__WB_MANIFEST || []).concat([
-    { url: '/', revision: null },
+  (self.__WB_MANIFEST || [])
+    .filter(() => false)
+    .concat([
+      { url: '/', revision: null },
 
-    { url: '/auth/login', revision: null },
-    { url: '/auth/forgot-password', revision: null },
-    { url: '/auth/reset-password', revision: null },
+      { url: '/auth/login', revision: null },
+      { url: '/auth/forgot-password', revision: null },
+      { url: '/auth/reset-password', revision: null },
 
-    { url: '/bank/dashboard', revision: null },
-    { url: '/bank/bills', revision: null },
-    { url: '/bank/bills/deleted', revision: null },
-    { url: '/bank/users', revision: null },
-    { url: '/bank/users/deleted', revision: null },
-    { url: '/bank/create-bill', revision: null },
-    { url: '/bank/create-user', revision: null },
+      { url: '/bank/dashboard', revision: null },
+      { url: '/bank/bills', revision: null },
+      { url: '/bank/bills/deleted', revision: null },
+      { url: '/bank/users', revision: null },
+      { url: '/bank/users/deleted', revision: null },
+      { url: '/bank/create-bill', revision: null },
+      { url: '/bank/create-user', revision: null },
 
-    { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
-  ])
+      { url: process.env.CONTAINER_PUBLIC_PATH + 'offline.bundle.js', revision: null },
+    ])
 );
 
 registerRoute(
@@ -142,3 +144,29 @@ registerRoute(
     ],
   })
 );
+
+self.addEventListener('push', (event) => {
+  const data = event.data.json();
+  if (data.type === 'created_user') {
+    event.waitUntil(
+      self.registration.showNotification(data.title, {
+        body: `${data.createdUser.firstName} ${data.createdUser.lastName} as a new user with ${data.createdUser.role} role is created by ${data.createdUser.parent.firstName} ${data.createdUser.parent.lastName}.`,
+        vibrate: [100, 50, 100],
+        image: '/app-icon_512.png',
+        icon: '/app-icon_512.png',
+        badge: '/app-icon_512.png',
+        data: { createdUser: data.createdUser },
+        tag: 'created_user',
+        timestamp: Math.floor(Date.now()),
+      })
+    );
+  }
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  if (event.notification.tag === 'created_user') {
+    const url = `${self.origin}/bank/users/${event.notification.data.createdUser.id}`;
+    event.waitUntil(self.clients.openWindow(url));
+  }
+});
