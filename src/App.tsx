@@ -4,7 +4,7 @@ import { SnackbarProvider } from 'notistack';
 import LoadingFallback from './components/LoadingFallback';
 import RedirectionProvider from './components/RedirectionProvider';
 import UserServiceSocketProvider from './components/UserServiceSocketProvider';
-// import NotificationSubscription from './components/NotificationSubscription';
+import NotificationSubscription from './components/NotificationSubscription';
 import { isUserAuthenticated, Pathes, routes } from './lib';
 import './lib/socket';
 
@@ -21,8 +21,7 @@ function App() {
                   path={route.path}
                   element={
                     <Suspense fallback={<LoadingFallback />}>
-                      {/* <NotificationSubscription>{route.element}</NotificationSubscription> */}
-                      {route.element}
+                      <NotificationSubscription>{route.element}</NotificationSubscription>
                     </Suspense>
                   }
                 />
