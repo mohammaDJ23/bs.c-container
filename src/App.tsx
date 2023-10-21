@@ -9,6 +9,7 @@ import { isUserAuthenticated, Pathes, routes } from './lib';
 import './lib/socket';
 
 function App() {
+  console.log('App');
   return (
     <UserServiceSocketProvider>
       <BrowserRouter>
