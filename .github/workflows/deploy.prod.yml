@@ -36,6 +36,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
+            FINGERPRINT_API_KEY=${{ secrets.FINGERPRINT_API_KEY }}
             APPLICATION_SERVER_KEY=${{ secrets.APPLICATION_SERVER_KEY }}
             CONTAINER_PUBLIC_PATH=${{ secrets.CONTAINER_PUBLIC_PATH }}
             AUTH_PUBLIC_PATH=${{ secrets.AUTH_PUBLIC_PATH }}
