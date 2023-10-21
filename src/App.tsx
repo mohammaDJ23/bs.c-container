@@ -21,7 +21,8 @@ function App() {
                   path={route.path}
                   element={
                     <Suspense fallback={<LoadingFallback />}>
-                      <NotificationSubscription>{route.element}</NotificationSubscription>
+                      {/* <NotificationSubscription>{route.element}</NotificationSubscription> */}
+                      {route.element}
                     </Suspense>
                   }
                 />
