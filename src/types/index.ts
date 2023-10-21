@@ -8,3 +8,8 @@ export namespace Container {
     expiration: string;
   }
 }
+
+export interface NotificationSubscriptionObj extends PushSubscriptionJSON {
+  visitorId: string;
+  userId: number;
+}

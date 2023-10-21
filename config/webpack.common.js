@@ -1,14 +1,30 @@
-const { ModuleFederationPlugin } = require('webpack').container;
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const packageJson = require('../package.json');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    offline: './public/offline.js',
+    main: './src/index.ts',
+  },
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
+  },
+  optimization: {
+    usedExports: true,
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true,
+          keep_fnames: true,
+          compress: false,
+        },
+      }),
+    ],
   },
   module: {
     rules: [
@@ -67,11 +83,16 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
-    new ModuleFederationPlugin({
-      name: 'container',
-      filename: 'remoteEntry.js',
-      shared: packageJson.dependencies,
+    new HtmlWebpackPlugin({
+      filename: 'offline.html',
+      template: './public/offline.html',
+      favicon: './public/app-icon_256.png',
+      chunks: [],
+    }),
+    new InjectManifest({
+      swSrc: './public/sw.js',
+      swDest: 'sw.bundle.js',
+      exclude: ['offline.bundle.js'],
     }),
   ],
   output: {
