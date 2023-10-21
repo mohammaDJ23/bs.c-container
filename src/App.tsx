@@ -1,15 +1,11 @@
-import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
-import LoadingFallback from './components/LoadingFallback';
 import RedirectionProvider from './components/RedirectionProvider';
 import UserServiceSocketProvider from './components/UserServiceSocketProvider';
-import NotificationSubscription from './components/NotificationSubscription';
 import { isUserAuthenticated, Pathes, routes } from './lib';
 import './lib/socket';
 
 function App() {
-  console.log('App');
   return (
     <UserServiceSocketProvider>
       <BrowserRouter>
@@ -21,9 +17,10 @@ function App() {
                   key={route.path}
                   path={route.path}
                   element={
-                    <Suspense fallback={<LoadingFallback />}>
-                      <NotificationSubscription>{route.element}</NotificationSubscription>
-                    </Suspense>
+                    // <Suspense fallback={<LoadingFallback />}>
+                    //   <NotificationSubscription>{route.element}</NotificationSubscription>
+                    // </Suspense>
+                    <></>
                   }
                 />
               ))}
