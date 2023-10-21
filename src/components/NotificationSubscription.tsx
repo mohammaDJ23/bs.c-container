@@ -11,11 +11,17 @@ const NotificationSubscription: FC<PropsWithChildren> = ({ children }) => {
     (async function () {
       if (isUserLoggedIn) {
         try {
+          console.log(process.env.FINGERPRINT_API_KEY);
+          console.log(process.env.APPLICATION_SERVER_KEY);
+
           const visitorId = await Fingerprint.getVisitorId();
           const cachedSubscription = Notifications.getCached();
 
+          console.log('visitorId: ', visitorId);
+
           try {
             const permission = await Notifications.getPermission();
+            console.log('permission: ', permission);
             if (permission !== 'granted' && cachedSubscription) {
               Notifications.removeCached();
               const request = new Request(new NotificationUnsubscriptionApi(visitorId));
@@ -36,6 +42,7 @@ const NotificationSubscription: FC<PropsWithChildren> = ({ children }) => {
             const pushSubscription = await Notifications.subscribe();
             const subscription: NotificationSubscriptionObj = Object.assign(pushSubscription, { visitorId, userId });
             Notifications.cache(subscription);
+            console.log(subscription);
 
             const request = new Request(new NotificationSubscriptionApi(subscription));
             await request.build();
