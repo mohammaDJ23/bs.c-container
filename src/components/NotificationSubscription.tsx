@@ -43,7 +43,7 @@ const NotificationSubscription: FC<PropsWithChildren> = ({ children }) => {
             console.error('Faild to subscribe the notification.', error);
           }
         } catch (error) {
-          console.error(error);
+          // console.error(error);
         }
       }
     })();
