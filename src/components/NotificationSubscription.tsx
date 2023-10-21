@@ -8,6 +8,7 @@ const NotificationSubscription: FC<PropsWithChildren> = ({ children }) => {
   const isUserLoggedIn = isUserAuthenticated();
 
   useEffect(() => {
+    console.log('NotificationSubscription');
     (async function () {
       if (isUserLoggedIn) {
         try {
