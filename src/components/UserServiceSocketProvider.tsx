@@ -1,18 +1,22 @@
 import { FC, PropsWithChildren, Fragment, useEffect } from 'react';
 import { getUserServiceSocket } from '../lib';
-import { useSnackbar } from 'notistack';
 
 const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    const socket = getUserServiceSocket();
+    socket.on('connect_error', (err) => {});
+    return () => {
+      socket.removeAllListeners();
+    };
+  }, []);
 
   useEffect(() => {
-    // const userServiceSocket = getUserServiceSocket();
-    // userServiceSocket.on('connect_error', err => {
-    //   enqueueSnackbar({message : err.message, variant: "error"})
-    // });
-    // return () => {
-    //   userServiceSocket.removeAllListeners();
-    // };
+    window.addEventListener('on-login', () => {
+      window.location.reload();
+    });
+    window.addEventListener('on-logout', () => {
+      window.location.reload();
+    });
   }, []);
 
   return <Fragment>{children}</Fragment>;
