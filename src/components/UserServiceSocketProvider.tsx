@@ -1,9 +1,22 @@
-import { FC, PropsWithChildren, Fragment, useEffect } from 'react';
+import { FC, PropsWithChildren, Fragment, useEffect, useRef } from 'react';
 import { getUserServiceSocket } from '../lib';
 
 const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
+  const socket = useRef(getUserServiceSocket());
+
   useEffect(() => {
-    const socket = getUserServiceSocket();
+    socket.current.on('connect_error', (err) => {});
+  }, []);
+
+  useEffect(() => {
+    socket.current.emit('users_status');
+    socket.current.on('users_status', (data) => {
+      const event = new CustomEvent('users-status', {
+        cancelable: true,
+        detail: data,
+      });
+      window.dispatchEvent(event);
+    });
   }, []);
 
   useEffect(() => {
