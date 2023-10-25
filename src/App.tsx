@@ -10,28 +10,28 @@ import './lib/socket';
 
 function App() {
   return (
-    <UserServiceSocketProvider>
-      <BrowserRouter>
-        <RedirectionProvider>
-          <SnackbarProvider dense maxSnack={Infinity} anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
-            <Routes>
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={
-                    <Suspense fallback={<LoadingFallback />}>
+    <BrowserRouter>
+      <RedirectionProvider>
+        <SnackbarProvider dense maxSnack={Infinity} anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
+          <Routes>
+            {routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  <Suspense fallback={<LoadingFallback />}>
+                    <UserServiceSocketProvider>
                       <NotificationSubscription>{route.element}</NotificationSubscription>
-                    </Suspense>
-                  }
-                />
-              ))}
-              <Route path="*" element={<Navigate to={isUserAuthenticated() ? Pathes.DASHBOARD : Pathes.LOGIN} />} />
-            </Routes>
-          </SnackbarProvider>
-        </RedirectionProvider>
-      </BrowserRouter>
-    </UserServiceSocketProvider>
+                    </UserServiceSocketProvider>
+                  </Suspense>
+                }
+              />
+            ))}
+            <Route path="*" element={<Navigate to={isUserAuthenticated() ? Pathes.DASHBOARD : Pathes.LOGIN} />} />
+          </Routes>
+        </SnackbarProvider>
+      </RedirectionProvider>
+    </BrowserRouter>
   );
 }
 
