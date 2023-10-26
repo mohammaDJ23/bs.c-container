@@ -1,8 +1,10 @@
-import { FC, PropsWithChildren, Fragment, useEffect, useRef, useState } from 'react';
-import { UserRoles, getTokenInfo, getUserServiceSocket, isUserAuthenticated } from '../lib';
+import { FC, PropsWithChildren, Fragment, useEffect, useState } from 'react';
+import { UserRoles, getTokenInfo, isUserAuthenticated } from '../lib';
+import { useUserServiceSocket } from '../hooks';
+import { UsersStatusType } from '../types';
 
-const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
-  const socket = useRef(getUserServiceSocket());
+const UsersServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
+  const socket = useUserServiceSocket();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(isUserAuthenticated());
 
   useEffect(() => {
@@ -12,19 +14,11 @@ const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [isUserLoggedIn]);
 
   useEffect(() => {
-    socket.current.on('connect_error', (err) => {
-      console.error('Socket error: ', err);
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log('trigger users_status', isUserLoggedIn);
     if (isUserLoggedIn) {
       const userInfo = getTokenInfo()!;
       if (userInfo.role === UserRoles.OWNER) {
-        socket.current.emit('users_status');
-        socket.current.on('users_status', (data) => {
-          console.log(data);
+        socket.emit('users_status');
+        socket.on('users_status', (data: UsersStatusType) => {
           const event = new CustomEvent('users-status', {
             cancelable: true,
             detail: data,
@@ -37,13 +31,9 @@ const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     window.addEventListener('on-login', () => {
-      console.log('on-login event triggered');
-      socket.current.connect();
       window.location.reload();
     });
     window.addEventListener('on-logout', () => {
-      console.log('on-logout event triggered');
-      socket.current.close();
       window.location.reload();
     });
   }, []);
@@ -51,4 +41,4 @@ const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
   return <Fragment>{children}</Fragment>;
 };
 
-export default UserServiceSocketProvider;
+export default UsersServiceSocketProvider;

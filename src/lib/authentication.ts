@@ -1,5 +1,5 @@
 import { decodeToken } from 'react-jwt';
-import { Container } from '../types';
+import { TokenInfo } from '../types';
 import { LocalStorage } from './';
 
 export enum UserRoles {
@@ -18,7 +18,7 @@ export function getToken(): string {
 }
 
 export function getTokenInfo() {
-  return decodeToken<Container.TokenInfo>(getToken());
+  return decodeToken<TokenInfo>(getToken());
 }
 
 export function isUserAuthenticated() {
