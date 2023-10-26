@@ -39,6 +39,7 @@ const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
       window.location.reload();
     });
     window.addEventListener('on-logout', () => {
+      socket.current.close();
       window.location.reload();
     });
   }, []);
