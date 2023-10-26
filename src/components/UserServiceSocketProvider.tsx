@@ -38,14 +38,6 @@ const UsersServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
     });
   }, []);
 
-  useEffect(() => {
-    if (!isUserLoggedIn && socket.connected) {
-      return () => {
-        socket.close();
-      };
-    }
-  }, [isUserLoggedIn]);
-
   return <Fragment>{children}</Fragment>;
 };
 
