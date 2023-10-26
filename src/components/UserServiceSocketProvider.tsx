@@ -18,6 +18,7 @@ const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log('trigger users_status', isUserLoggedIn);
     if (isUserLoggedIn) {
       const userInfo = getTokenInfo()!;
       if (userInfo.role === UserRoles.OWNER) {
