@@ -3,7 +3,7 @@ import { getToken } from './authentication';
 
 export function getUserServiceSocket() {
   return io(`${process.env.USER_SERVICE}`, {
-    path: '/socket/user-connection',
+    path: '/api/v1/user/socket/connection',
     transportOptions: {
       polling: {
         extraHeaders: {
