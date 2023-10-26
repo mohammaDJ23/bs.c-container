@@ -37,9 +37,12 @@ const UserServiceSocketProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     window.addEventListener('on-login', () => {
+      console.log('on-login event triggered');
+      socket.current.connect();
       window.location.reload();
     });
     window.addEventListener('on-logout', () => {
+      console.log('on-logout event triggered');
       socket.current.close();
       window.location.reload();
     });
