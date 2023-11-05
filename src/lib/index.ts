@@ -4,3 +4,4 @@ export * from './routes';
 export * from './socket';
 export * from './environments';
 export * from './notification';
+export * from './fingerprint';

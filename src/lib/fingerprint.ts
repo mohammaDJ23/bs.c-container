@@ -1,8 +1,8 @@
-import FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 export class Fingerprint {
   static load() {
-    return FingerprintJS.load({ apiKey: process.env.FINGERPRINT_API_KEY! });
+    return FingerprintJS.load();
   }
 
   static async getVisitorId() {
