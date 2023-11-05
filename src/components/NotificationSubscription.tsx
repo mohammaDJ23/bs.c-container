@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, Fragment, useEffect } from 'react';
 import { Notifications, getTokenInfo, isUserAuthenticated } from '../lib';
-import { Fingerprint } from '../lib/fingerprint';
+import { Fingerprint } from '../lib';
 import { NotificationSubscriptionApi, NotificationUnsubscriptionApi, Request } from '../apis';
 import { NotificationSubscriptionObj } from '../types';
 
