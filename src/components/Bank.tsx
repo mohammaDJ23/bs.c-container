@@ -2,9 +2,9 @@ import { app } from 'bank/BankApp';
 import { useInitialMicro } from '../hooks';
 
 function Bank() {
-  const { ref } = useInitialMicro(app);
+  const initialMicro = useInitialMicro(app);
 
-  return <div ref={ref} />;
+  return <div ref={initialMicro.ref} />;
 }
 
 export default Bank;
