@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import LoadingFallback from './components/LoadingFallback';
 import RedirectionProvider from './components/RedirectionProvider';
-import AuthEventProvider from './components/AuthEventProvider';
 import NotificationSubscription from './components/NotificationSubscription';
 import { isUserAuthenticated, Pathes, routes } from './lib';
 import './lib/socket';
