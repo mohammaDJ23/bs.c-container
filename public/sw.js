@@ -160,6 +160,19 @@ self.addEventListener('push', (event) => {
         timestamp: Math.floor(Date.now()),
       })
     );
+  } else if (data.type === 'created_message') {
+    event.waitUntil(
+      self.registration.showNotification(`${data.targetUser.firstName} ${data.targetUser.lastName}`, {
+        body: `${data.message.text}`,
+        vibrate: [100, 50, 100],
+        image: '/app-icon_512.png',
+        icon: '/app-icon_512.png',
+        badge: '/app-icon_512.png',
+        data,
+        tag: 'created_message',
+        timestamp: Math.floor(Date.now()),
+      })
+    );
   }
 });
 
@@ -167,6 +180,9 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   if (event.notification.tag === 'created_user') {
     const url = `${self.origin}/bank/users/${event.notification.data.createdUser.id}`;
+    event.waitUntil(self.clients.openWindow(url));
+  } else if (event.notification.tag === 'created_message') {
+    const url = `${self.origin}/bank/chat/`;
     event.waitUntil(self.clients.openWindow(url));
   }
 });
