@@ -33,12 +33,31 @@
         margin: 0;
         margin-bottom: 0.5rem;
       }
+      #_container-service-offline-reload {
+        font-size: 1.1rem;
+        font-weight: 500;
+        font-family: Roboto, sans-serif;
+        line-height: 1.2;
+        margin: 0;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        color: #20a0ff;
+      }
     </style>
   </head>
   <body>
     <div id="_container-service-offline-wrapper">
       <h3 id="_container-service-offlie-title">You are offline</h3>
       <p id="_container-service-offline-description">Check your internet connection.</p>
+      <p id="_container-service-offline-reload">Reload</p>
     </div>
+    <script>
+      const reloadEl = document.querySelector('#_container-service-offline-reload');
+      if (reloadEl) {
+        reloadEl.addEventListener('click', () => {
+          window.location.reload();
+        });
+      }
+    </script>
   </body>
 </html>
