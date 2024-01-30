@@ -41,7 +41,7 @@
   "start_url": "/bank/dashboard",
   "id": "/bank/dashboard",
   "background_color": "#FFFFFF",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "/",
   "theme_color": "#209eff",
   "description": "Store and manage your bill informations with a simple and better way."
