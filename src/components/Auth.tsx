@@ -2,9 +2,9 @@ import { app } from 'auth/AuthApp';
 import { useInitialMicro } from '../hooks';
 
 function Auth() {
-  const { ref } = useInitialMicro(app);
+  const initialMicro = useInitialMicro(app);
 
-  return <div ref={ref} />;
+  return <div style={{ width: '100%', height: '100%', overflow: 'overlay' }} ref={initialMicro.ref} />;
 }
 
 export default Auth;

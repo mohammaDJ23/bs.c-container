@@ -1,6 +1,6 @@
 {
   "short_name": "Bank system",
-  "name": "Managing your bills",
+  "name": "Bank system",
   "icons": [
     {
       "src": "/container/static/app-icon_16.png",
@@ -44,5 +44,6 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#209eff",
-  "description": "Store and manage your bill informations with a simple and better way."
+  "description": "Store and manage your bill informations with a simple and better way.",
+  "orientation": "portrait"
 }
