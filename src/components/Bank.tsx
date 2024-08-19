@@ -1,4 +1,5 @@
 import { app } from 'bank/BankApp';
+import 'bank/echarts';
 import { useInitialMicro } from '../hooks';
 
 function Bank() {
