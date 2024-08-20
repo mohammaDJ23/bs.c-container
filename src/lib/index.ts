@@ -5,3 +5,4 @@ export * from './socket';
 export * from './environments';
 export * from './notification';
 export * from './fingerprint';
+export * from './addScriptToHead';
