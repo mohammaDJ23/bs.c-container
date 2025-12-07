@@ -13,7 +13,7 @@ export function getServiceWorkerRegistration() {
 
 export function register() {
   getServiceWorker()
-    .register(process.env.CONTAINER_PUBLIC_PATH + 'sw.bundle.js', { scope: '/' })
+    .register(process.env.CONTAINER_PUBLIC_PATH + 'sw.bundle.js', { scope: process.env.CONTAINER_PUBLIC_PATH })
     .then((registration) => console.log('service worker registered: ', registration))
     .catch((err) => console.error('service worker registration failed: ', err));
 }
