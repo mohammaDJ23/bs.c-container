@@ -23,8 +23,8 @@ module.exports = merge(commonConfig, {
     }),
     new ModuleFederationPlugin({
       remotes: {
-        auth: `auth@${process.env.AUTH_APP}/remoteEntry.js`,
-        bank: `bank@${process.env.BANK_APP}/remoteEntry.js`,
+        auth: 'auth@' + process.env.AUTH_APP + process.env.AUTH_PUBLIC_PATH + 'remoteEntry.js',
+        bank: 'bank@' + process.env.BANK_APP + process.env.BANK_PUBLIC_PATH + 'remoteEntry.js',
       },
       shared: packageJson.dependencies,
     }),
